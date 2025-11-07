@@ -1,0 +1,115 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2412                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      fvSolution;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+solvers
+{
+
+    "rho.*"
+    {
+        solver          smoothSolver;
+        smoother        symGaussSeidel;
+        tolerance       1e-05;
+        relTol          0;
+
+    }
+    p
+    {
+		solver 		  	GAMG;
+		tolerance	 	1e-3;
+		relTol 			0.0;
+		smoother	    GaussSeidel;
+		nPreSweeps	 	0;
+		nPostSweeps 	2;
+		minIter         1;
+		cacheAgglomeration 	on;
+		agglomerator 	faceAreaPair;
+		nCellsInCoarsestLevel 	1000;
+		mergeLevels 	1;
+    }
+
+    pFinal
+    {
+		solver 			GAMG;
+		tolerance 		1e-5;
+		relTol 			0.0;
+		smoother 		GaussSeidel;
+		nPreSweeps		0;
+		nPostSweeps 	2;
+		minIter         1;
+		cacheAgglomeration 	on;
+		agglomerator		 faceAreaPair;
+		nCellsInCoarsestLevel 	1000;
+		mergeLevels 		1;
+    }
+	
+	    "(e|R).*"
+    {
+        solver         	  smoothSolver;
+        smoother       	  symGaussSeidel;
+        tolerance         1e-09;
+        relTol            0.0;
+    }
+
+    "(e|R)Final.*"
+    {
+        solver            smoothSolver;
+        smoother          symGaussSeidel;
+        tolerance         1e-09;
+        relTol            0.0;
+    }
+	
+	"U" {
+
+			solver 		      PBiCG;
+			preconditioner    DILU;
+			tolerance 	      1e-06;
+			relTol 	 	      0.0;
+			minIter		      1;
+	}
+
+"UFinal"{
+
+		     $U;
+			 tolerance 		 1e-09 ;
+			 relTol 	 	 0.0;
+	}
+
+    "(k|epsilon|omega)"
+    {
+        solver          smoothSolver;
+        smoother        symGaussSeidel;
+        tolerance       1e-6;
+        relTol          0.0;
+    }
+
+    "(k|epsilon|omega)Final.*"
+    {
+		
+         solver          smoothSolver;
+         smoother        symGaussSeidel;
+         tolerance       1e-9;
+         relTol          0;
+    }
+}
+
+
+PISO
+{
+    nCorrectors     2;
+    nNonOrthogonalCorrectors 1;
+}
+
+// ************************************************************************* //

@@ -1,0 +1,53 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  plus                                  |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+
+x_5_normal
+{
+    type            surfaces;
+    libs            ("libsampling.so");
+   // writeControl    writeTime;
+
+    writeControl  runTime;
+    writeInterval  0.001;
+
+
+    surfaceFormat   vtk;
+	//surfaceFormat   stl;
+    fields          (p U vorticity);
+
+    interpolationScheme cellPoint;
+
+    surfaces
+    (
+		x_5_normal
+        {
+            type            cuttingPlane;
+            planeType       pointAndNormal;
+            pointAndNormalDict
+            {
+                point   (1.1 0 0);
+                normal  (1 0 0);
+            }
+            interpolate     true;
+        }
+		
+    );
+	
+		formatOptions
+	{
+    vtk
+    {
+        legacy true;
+        // format ascii;
+    } 
+}
+
+}
+
+
+// ************************************************************************* //

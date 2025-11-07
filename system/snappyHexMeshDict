@@ -1,0 +1,143 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  9
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      snappyHexMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+// Which of the steps to run
+castellatedMesh true;
+snap            true;
+addLayers       false;
+
+d 0.1;
+h 0.2;
+
+geometry
+{
+    boxbuild_1   // bulidnging itself
+    {
+        type searchableBox;
+        min (#calc "8*$d"      0 	           #calc "-0.5*$d");
+        max (#calc "9*$d"      #calc "2*$d"     #calc "0.5*$d" );
+    }
+	
+	
+	    spaceAroundBuilding_1_1   // modified regiong around the building
+    {
+        type searchableBox;
+        min (#calc "7.5*$d" 0 			       #calc "-0.75*$d");
+        max (#calc "13*$d"   #calc "3*$d"    #calc " 0.75*$d" );
+    }
+	
+	
+	
+		Turbulence_source_filed   // modified regiong around the building
+    {
+        type searchableBox;
+        min (#calc "2*$d" 0 			       #calc "-0.75*$d");
+        max (#calc "7.8*$d"   #calc "3*$d"    	#calc "0.75*$d" );
+    }
+
+
+};
+
+castellatedMeshControls
+{
+    maxLocalCells 10000000;
+    maxGlobalCells 25000000;
+    minRefinementCells 0;
+    maxLoadUnbalance 0.90;
+    nCellsBetweenLevels 5;
+
+    features
+    (
+    );
+
+    refinementSurfaces   // refinement on the surface
+    {
+        boxbuild_1
+        {
+            level (4 4); // Increased refinement level for building surfaces
+        }
+		
+
+    }
+
+    resolveFeatureAngle 1;
+
+    refinementRegions   // refinement on volume
+    {
+        spaceAroundBuilding_1_1
+        {
+            mode inside; // Comment: Search about the levels here
+            levels ((1E15 4)); // Example level of refinement
+        }
+		
+
+		
+		
+		Turbulence_source_filed
+		        {
+            mode inside; // Comment: Search about the levels here
+            levels ((1E15 3)); // Example level of refinement
+        }
+		
+		
+        boxbuild_1
+        {
+            mode inside;
+            levels ((1E15 -1)); // No refinement inside the box
+        }
+
+
+    }
+
+    locationInMesh (#calc "2*$d" 0 0);
+    allowFreeStandingZoneFaces true;
+}
+
+snapControls
+{
+    nSmoothPatch 5;
+    tolerance 2.0; // Adjusted tolerance for finer snapping
+    nSolveIter 700; // Increased iterations for better convergence
+    nRelaxIter 7;
+}
+
+addLayersControls
+{
+}
+
+meshQualityControls
+{
+    maxNonOrtho 65;
+    maxBoundarySkewness 20;
+    maxInternalSkewness 4;
+    maxConcave 80;
+    minFlatness 0.5;
+    minVol 1e-13;
+    minTetQuality 1e-30;
+    minArea -1;
+    minTwist 0.02;
+    minDeterminant 0.001;
+    minFaceWeight 0.02;
+    minVolRatio 0.01;
+    minTriangleTwist 1;
+    nSmoothScale 4;
+    errorReduction 0.75;
+}
+
+mergeTolerance 1e-6;
+
+// ************************************************************************* //
+
