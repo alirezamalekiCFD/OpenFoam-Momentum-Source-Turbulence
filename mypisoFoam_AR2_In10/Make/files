@@ -1,0 +1,3 @@
+mypisoFoam_AR2_In10.C
+
+EXE = $(FOAM_APPBIN)/mypisoFoam_AR2_In10

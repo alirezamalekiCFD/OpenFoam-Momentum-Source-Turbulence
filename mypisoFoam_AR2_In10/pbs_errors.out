@@ -1,0 +1,25 @@
+Loading cmake/3.27.9-gcc-8.5.0-5bfhfkk
+  Loading requirement: nghttp2/1.57.0-gcc-8.5.0-luwm253
+    zlib-ng/2.1.6-gcc-8.5.0-gb72rqe openssl/3.2.1-gcc-8.5.0-v3hdplx
+    curl/8.6.0-gcc-8.5.0-7fdnmka gmake/4.4.1-gcc-8.5.0-ibygv4x
+    ncurses/6.4-gcc-8.5.0-vb6dlni
+Loading openmpi/5.0.2-gcc-8.5.0-diludms
+  Loading requirement: libpciaccess/0.17-gcc-8.5.0-cbhpswu
+    libiconv/1.17-gcc-8.5.0-o2nnagx xz/5.4.6-gcc-8.5.0-gywi3ln
+    libxml2/2.10.3-gcc-8.5.0-6w4zitd hwloc/2.9.1-gcc-8.5.0-izyllh3
+    libevent/2.1.12-gcc-8.5.0-qmazmy6 numactl/2.0.14-gcc-8.5.0-bjw46ix
+    bzip2/1.0.8-gcc-8.5.0-ln2o34p pigz/2.8-gcc-8.5.0-j2xi25w
+    zstd/1.5.5-gcc-8.5.0-uyhpgu4 tar/1.34-gcc-8.5.0-mjgm5vd
+    gettext/0.22.4-gcc-8.5.0-hbcb56w krb5/1.20.1-gcc-8.5.0-ofjceqd
+    libedit/3.1-20230828-gcc-8.5.0-qxqh3cv libxcrypt/4.4.35-gcc-8.5.0-a3v3aq7
+    openssh/9.7p1-gcc-8.5.0-ix6zm4g pmix/5.0.1-gcc-8.5.0-wy44rsw
+wmkdepend: buffer full while scanning 'sourceMarina2_89.H'
+In file included from mypisoFoam_AR2_In10.C:108:
+sourceMarina2_89.H: In function ‘int main(int, char**)’:
+sourceMarina2_89.H:28:8: warning: variable ‘ZP’ set but not used [-Wunused-but-set-variable]
+ scalar ZP;
+        ^~
+In file included from mypisoFoam_AR2_In10.C:108:
+sourceMarina2_89.H:101:8: warning: unused variable ‘centroid’ [-Wunused-variable]
+ scalar centroid[2];
+        ^~~~~~~~
