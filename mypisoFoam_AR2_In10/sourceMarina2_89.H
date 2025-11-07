@@ -133,11 +133,11 @@ scalar maxSourceZ = 0;
 							GTFUN=0.5*(Foam::tanh(100*(y_loc+YGS))-Foam::tanh(100*(y_loc-YGS)));
 							GCOMF=(Foam::pow(GALF,2)-Foam::pow(BGS,2))/(Foam::pow(BGS,2)*Foam::sin(GOMEGA*Pi/GVEL/BGS));
 
-							UTERM=-GTEST*GOMEGA*GCOMF*(GTFUN)*(GFUN)*(GAX[nHarm]*Foam::cos(PHASE)-GBX[nHarm]*Foam::sin(PHASE));  // cos   sin
+							UTERM=-GTEST*GOMEGA*GCOMF*(GTFUN)*(GFUN)*(GAX[nHarm]*Foam::cos(PHASE)-GBX[nHarm]*Foam::sin(PHASE)); 
 							source_x=source_x+UTERM; 
 							 
 
-							VTERM=GTEST*GVEL*GCOMF*(GTFUN)*(GFUNX)*(GAY[nHarm]*Foam::sin(PHASE)+GBY[nHarm]*Foam::cos(PHASE));  // sin  cos
+							VTERM=GTEST*GVEL*GCOMF*(GTFUN)*(GFUNX)*(GAY[nHarm]*Foam::sin(PHASE)+GBY[nHarm]*Foam::cos(PHASE)); 
 								source_y=source_y+VTERM;
 								
 							
